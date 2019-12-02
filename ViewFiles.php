@@ -7,7 +7,7 @@
 </head>
 <body>
 <?php
-$Dir = "/Users/stuartdaw/.bitnami/stackman/machines/xampp/volumes/root/htdocs/fyp/ViewFiles.php";
+$Dir = "../ViewFiles.php";
 $DirEntries = scandir($Dir);
 echo "<table border='1' width='100%'>\n";
 echo "<tr><th colspan='4'>Directory listing for <strong>" . htmlentities($Dir) . "</strong></th></tr>\n";
