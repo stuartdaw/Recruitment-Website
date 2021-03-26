@@ -1,0 +1,56 @@
+<?php echo "@@@@@@@@@";
+        var_dump($profile);
+        echo "@@@@@@@@@"; ?>
+
+{% extends "base.html" %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block body %}
+
+
+    <h1>Welcome {{ user.UA_FIRST_NAME ~ " " ~ user.UA_LAST_NAME  }} to your profile</h1>
+    <div>
+        <h2>User Details</h2>
+            <dl>
+                <dt>First Name</dt>
+                    <dd>{{ current_user.UA_FIRST_NAME }}</dd>
+                <dt>Last Name</dt>
+                    <dd>{{ current_user.UA_LAST_NAME }}</dd>
+                <dt>Email</dt>
+                    <dd>{{ current_user.UA_EMAIL }}</dd>
+                <dt>Account Type</dt>
+                    <dd>{{ current_user.UA_TYPE }}</dd>
+            </dl>
+    </div>
+    <div>
+        <h2>Personal Information</h2>
+            <dl>
+                <dt>DOB</dt>
+                <dd>{{ profile.PF_DOB }}</dd>
+
+                <dd>{% if PF_DOB %}}{{ profile.PF_DOB }}{% else %} - {% endif %}</dd>
+                <dt>Address</dt>
+
+                <dd>{{ profile.PF_ROAD }}</dd>
+
+                <dd>{% if prof.PF_ROAD %} {{ prof.PF_ROAD }} {% else %} Please add road {% endif %},</dd>
+                    <dd>{% if prof.PF_UNIT %} {{ prof.PF_UNIT }} {% else %} Please add block/unit {% endif %},</dd>
+                    <dd>{% if prof.PF_COUNTRY %} {{ prof.PF_COUNTRY }} {% else %} Please add country {% endif %},</dd>
+                    <dd>{% if prof.PF_CODE %} {{ prof.PF_CODE }} {% else %} Please add post code {% endif %}</dd>
+                <dt>Phone</dt>
+                    <dd>{% if prof.PF_PHONE %} {{ prof.PF_PHONE }} {% else %} - {% endif %}</dd>
+            </dl>
+    </div>
+    <div>
+        <h2>Availability</h2>
+            <dl>
+                <dt>Daytime (8:30 - 18:30)</dt>
+                    <dd>{% if prof.PF_SESSION_DAY %}}{{ prof.PF_SESSION_DAY }}{% else %} - {% endif %}</dd>
+                <dt>Evening (19:00 - 22:00)</dt>
+                    <dd>{% if prof.PF_SESSION_EVENING %}}{{ prof.PF_SESSION_EVENING }}{% else %} - {% endif %}</dd>
+            </dl>
+    </div>
+
+
+{% endblock %}
