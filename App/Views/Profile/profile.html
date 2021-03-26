@@ -1,7 +1,3 @@
-<?php echo "@@@@@@@@@";
-        var_dump($profile);
-        echo "@@@@@@@@@"; ?>
-
 {% extends "base.html" %}
 
 {% block title %}My Profile{% endblock %}
@@ -12,45 +8,124 @@
     <h1>Welcome {{ user.UA_FIRST_NAME ~ " " ~ user.UA_LAST_NAME  }} to your profile</h1>
     <div>
         <h2>User Details</h2>
-            <dl>
-                <dt>First Name</dt>
-                    <dd>{{ current_user.UA_FIRST_NAME }}</dd>
-                <dt>Last Name</dt>
-                    <dd>{{ current_user.UA_LAST_NAME }}</dd>
-                <dt>Email</dt>
-                    <dd>{{ current_user.UA_EMAIL }}</dd>
-                <dt>Account Type</dt>
-                    <dd>{{ current_user.UA_TYPE }}</dd>
-            </dl>
+        <dl>
+            <dt>First Name</dt>
+                <dd>{{ current_user.UA_FIRST_NAME }}</dd>
+            <dt>Last Name</dt>
+                <dd>{{ current_user.UA_LAST_NAME }}</dd>
+            <dt>Email</dt>
+                <dd>{{ current_user.UA_EMAIL }}</dd>
+            <dt>Account Type</dt>
+                <dd>{{ current_user.UA_TYPE }}</dd>
+        </dl>
     </div>
     <div>
         <h2>Personal Information</h2>
+        <a href="/fyp/public/?Myprofile/editPersonal">edit</a>
             <dl>
                 <dt>DOB</dt>
                 <dd>{{ profile.PF_DOB }}</dd>
 
-                <dd>{% if PF_DOB %}}{{ profile.PF_DOB }}{% else %} - {% endif %}</dd>
                 <dt>Address</dt>
+                <dd>{% if profile.PF_ROAD %} {{ profile.PF_ROAD }}, {% else %} Please add road{% endif %}</dd>
+                    <dd>{% if profile.PF_UNIT %} {{ profile.PF_UNIT }}, {% else %} Please add block/unit{% endif %}</dd>
+                    <dd>{% if profile.PF_COUNTRY %} {{ profile.PF_COUNTRY }}, {% else %} Please add country{% endif %}</dd>
+                    <dd>{% if profile.PF_CODE %} {{ profile.PF_CODE }} {% else %} Please add post code{% endif %}</dd>
+                <dt>Gender</dt>
+                <dd>{% if profile.PF_SEX %} {{ profile.PF_SEX|capitalize }} {% else %} - {% endif %}</dd>
 
-                <dd>{{ profile.PF_ROAD }}</dd>
-
-                <dd>{% if prof.PF_ROAD %} {{ prof.PF_ROAD }} {% else %} Please add road {% endif %},</dd>
-                    <dd>{% if prof.PF_UNIT %} {{ prof.PF_UNIT }} {% else %} Please add block/unit {% endif %},</dd>
-                    <dd>{% if prof.PF_COUNTRY %} {{ prof.PF_COUNTRY }} {% else %} Please add country {% endif %},</dd>
-                    <dd>{% if prof.PF_CODE %} {{ prof.PF_CODE }} {% else %} Please add post code {% endif %}</dd>
                 <dt>Phone</dt>
-                    <dd>{% if prof.PF_PHONE %} {{ prof.PF_PHONE }} {% else %} - {% endif %}</dd>
+                    <dd>{% if profile.PF_PHONE %} {{ profile.PF_PHONE }} {% else %} - {% endif %}</dd>
             </dl>
     </div>
     <div>
         <h2>Availability</h2>
+        <a href="/fyp/public/?Myprofile/editAvailability">edit</a>
             <dl>
                 <dt>Daytime (8:30 - 18:30)</dt>
-                    <dd>{% if prof.PF_SESSION_DAY %}}{{ prof.PF_SESSION_DAY }}{% else %} - {% endif %}</dd>
+                    <dd>{% if profile.PF_SESSION_DAY %} {{ profile.PF_SESSION_DAY|capitalize }} {% else %} - {% endif %}</dd>
                 <dt>Evening (19:00 - 22:00)</dt>
-                    <dd>{% if prof.PF_SESSION_EVENING %}}{{ prof.PF_SESSION_EVENING }}{% else %} - {% endif %}</dd>
+                    <dd>{% if profile.PF_SESSION_EVENING %} {{ profile.PF_SESSION_EVENING|capitalize }} {% else %} - {% endif %}</dd>
             </dl>
     </div>
-
+    <div>
+        <h2>Qualifications</h2>
+        <a href="/fyp/public/?Myprofile/addQualification">add new</a>
+        <table>
+            <tr>
+                <th>University</th>
+                <th>Major</th>
+                <th>Name</th>
+                <th>Level</th>
+                <th>Description</th>
+                <th>Graduation Year</th>
+                <th>Classification</th>
+                <th>edit</th>
+            </tr>
+            {% for quals in qualification %}
+            <tr>
+                <td> {{ quals.Q_SCHOOL }} </td>
+                <td> {{ quals.Q_MAJOR }} </td>
+                <td> {{ quals.Q_NAME }} </td>
+                <td> {{ quals.Q_LEVEL }} </td>
+                <td> {{ quals.Q_DESC }} </td>
+                <td> {{ quals.Q_GRADYEAR }} </td>
+                <td> {{ quals.Q_CLASSIFICATION }} </td>
+                <td><form method="post" action="/fyp/public/?Myprofile/editQualification">
+                    <input type="hidden" name='qid' value="{{ quals.Q_NUM }}">
+                    <button type="submit">edit</button>
+                </form></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div>
+        <h2>Experience</h2>
+        <a href="/fyp/public/?Myprofile/addExperience">add new</a>
+        <table>
+            <tr>
+                <th>Organisation</th>
+                <th>Position</th>
+                <th>start date</th>
+                <th>Duration</th>
+                <th>Responsibilities</th>
+            </tr>
+            {% for exp in experience %}
+            <tr>
+                <td> {{ exp.E_ORG }} </td>
+                <td> {{ exp.E_POSITION }} </td>
+                <td> {{ exp.E_START }} </td>
+                <td> {{ exp.E_YEARS }} </td>
+                <td> {{ exp.E_DESC }} </td>
+                <td><form method="post" action="/fyp/public/?Myprofile/editExperience">
+                    <input type="hidden" name='eid' value="{{ exp.E_NUM }}">
+                    <button type="submit">edit</button>
+                </form></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div>
+        <h2>Skills</h2>
+        <a href="/fyp/public/?Myprofile/addSkills">add new</a>
+            <table>
+                <tr>
+                    <th>Skill</th>
+                    <th>Proficiency</th>
+                    <th>Description</th>
+                </tr>
+                {% for skill in skills %}
+                <tr>
+                    <td> {{ skill.S_NAME }} </td>
+                    <td> {{ skill.S_PROFICIENCY }} </td>
+                    <td> {{ skill.S_DESC }} </td>
+                    <td><form method="post" action="/fyp/public/?Myprofile/editSkills">
+                        <input type="hidden" name='sid' value="{{ skill.S_NUM }}">
+                        <button type="submit">edit</button>
+                    </form></td>
+                </tr>
+                {% endfor %}
+            </table>
+    </div>
 
 {% endblock %}

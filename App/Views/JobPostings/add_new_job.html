@@ -1,10 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}User Account{% endblock %}
+{% block footer %}
+{% endblock %}
+
+{% block body %}
+<h1>Add New Job</h1>
+
+{% if user.errors is not empty %}
+<p>Errors</p>
+<ul>
+    {% for error in user.errors %}
+    <li>{{ error}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<p>Please add a jod description</p>
+
+<form method="post" action="/fyp/public/?Jobpostings/addNewJob" id="formAddNewJob">
+    <div>
+        <label for="inputRef">Job reference</label>
+        <input type="text" id="inputRef" name="reference" value="REF: W0419-HE1" placeholder="Job reference" autofocus required />
+    </div><br/>
+    <div>
+        <label for="inputTitle">Job Title</label>
+        <input type="text" id="inputTitle" name="title" value="Data Programming in Python" placeholder="Job Title" required />
+    </div><br/>
+    <div>
+        <label for="inputUniversity">University</label>
+        <input type="text" id="inputUniversity" name="university" value="UOW" placeholder="Partner University" required />
+    </div><br/>
+    <div>
+        <label for="inputProg">Programme</label>
+        <input type="text" id="inputProg" name="programme" value="BIT" placeholder="Programme" required />
+    </div><br/>
+    <div>
+        <label>Description</label><br/>
+<!--        <input type="text" size="1500" id="inputDesc" name="desc" placeholder="Job Description" required />-->
+        <textarea rows="10" cols="200" name="desc">
+New module for new programme - Data Programming in Python
+
+Rationale: This module will provide you with the programming skills necessary to carry out the programming
+tasks in the rest of the programme.
+
+Aims: This module aims to provide you with the programming skills you will need to carry out the programming tasks you will encounter in the other modules in this programme. You will learn about general programming techniques such as variables, functions and control flow. You will learn how to work with different types of data structures such as arrays and dictionaries. You will develop data processing pipelines, which allow you to convert raw data into data that you can analyse. You will apply mathematical and statistical procedures to data. You will learn how to plot graphs of various types. You will also familiarise yourself with an industry standard data science programming environment which you can use throughout the programme.
+
+Assessment Elements
+1. 2 Coursework (30% weighting)
+2. 3-hours written Examination (70% weighting) - comprise of three sections with a mix of qualitative and quantitative questions
+        </textarea>
+    </div><br/>
+    <div>
+        <label>Job requirements</label><br/>
+<!--        <input type="text" size="1500" id="inputReq" name="requirements" placeholder="Job Requirements" required />-->
+        <textarea rows="5" cols="200" name="requirements">
+- A Ph.D or Master's Degree in related discipline from a reputable university.
+- At least 5 years of experience teaching maths, statistics, machine learning, artificial intelligence, financial technology, python, data mining and visualisation
+- 5 years of relevant work experience will be an added advantage
+- Applicant must be able to teach day time classes.
+        </textarea>
+    </div><br/>
+    <div>
+        <label for="inputPhd" id="inputPhd">PhD Needed</label>
+        <select name="phd">
+            <option value="Required">Required</option>
+            <option value="Preferred" selected="true">Preferred</option>
+            <option value="-">Not required</option>
+        </select>
+    </div><br/>
+    <div>
+        <label for="inputMsc" id="inputMsc">PhD Needed</label>
+        <select name="msc">
+            <option value="Required" selected="true">Required</option>
+            <option value="Preferred">Preferred</option>
+            <option value="-">Not require</option>
+        </select>
+    </div><br/>
+    <div>
+        <label for="inputDegree" id="inputDegree">PhD Needed</label>
+        <select name="degree">
+            <option value="Required" selected="true">Required</option>
+            <option value="Preferred">Preferred</option>
+            <option value="-">Not require</option>
+        </select>
+    </div><br/>
+    <div>
+        <label for="inputSession" id="inputSession">Session</label>
+        <select name="session">
+            <option value="DAY" selected="true">Required</option>
+            <option value="EVENING">Preferred</option>
+            <option value="BOTH">Not require</option>
+        </select>
+    </div><br/>
+    <div>
+        <label for="inputTeachingExp">Teaching Experience needed</label>
+        <input type="number" id="inputTeachingExp" name="teaching_exp" value="5" placeholder="No. of years" required />
+    </div><br/>
+    <div>
+        <label for="inputIndustryExp">Industry Experience needed</label>
+        <input type="number" id="inputIndustryExp" name="industry_exp"  value="5" placeholder="No. of years" required />
+    </div><br/>
+
+    <button type="submit">Save</button>
+    <a href="/fyp/public/?Jobpostings/index">Cancel</a>
+</form>
+
+
+{% endblock %}

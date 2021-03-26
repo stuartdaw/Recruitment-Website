@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Profile{% endblock %}
+{% block title %}User Account{% endblock %}
 {% block footer %}
 
 <script src="js/hideShowPassword.min.js"></script>
@@ -39,7 +39,7 @@
 {% endblock %}
 
 {% block body %}
-<h1> Edit Profile </h1>
+<h1> Edit User Account </h1>
 
 {% if user.errors is not empty %}
 <p>Errors</p>
@@ -54,7 +54,7 @@
 <p>Please enter your information</p>
 
 
-<form method="post" action="/fyp/public/?Profile/update" id="formProfile">
+<form method="post" action="/fyp/public/?UserAccount/update" id="formProfile">
     <div>
         <label for="inputFirstName">First Name</label>
         <input id="inputFirstName" name="first_name" placeholder="First Name" autofocus value="{{ user.UA_FIRST_NAME }}" required />
@@ -72,6 +72,6 @@
         <input type="password" id="inputPassword" name="password" placeholder="Password" required value="Test1234!!"/>
     </div><br/>
     <button type="submit">Save</button>
-    <a href="/fyp/public/?Profile/index">Cancel</a>
+    <a href="/fyp/public/?UserAccount/index">Cancel</a>
 </form>
 {% endblock %}

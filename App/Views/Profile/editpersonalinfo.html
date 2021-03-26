@@ -1,10 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}User Account{% endblock %}
+{% block footer %}
+{% endblock %}
+
+{% block body %}
+<h1>Edit Personal Information</h1>
+
+{% if user.errors is not empty %}
+<p>Errors</p>
+<ul>
+    {% for error in user.errors %}
+    <li>{{ error}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+<p>Please update your information</p>
+
+<form method="post" action="/fyp/public/?Myprofile/processPersonalData" id="formPersonal">
+    <div>
+        <label for="inputDOB">Date of birth</label>
+        <input type="date" id="inputDOB" name="dob" placeholder="D.O.B" autofocus value="{{ profile.PF_DOB }}" required />
+    </div><br/>
+    <div>
+        <label for="inputAddLine1">Address Line 1</label>
+        <input id="inputAddLine1" name="address_line1" placeholder="line 1" autofocus value="{{ profile.PF_ROAD }}" required />
+    </div><br/>
+    <div>
+        <label for="inputAddLine2">Address Line 2</label>
+        <input id="inputAddLine2" name="address_line2" placeholder="line 2" autofocus value="{{ profile.PF_UNIT }}" required />
+    </div><br/>
+    <div>
+        <label for="inputAddLine3">Address Line 3</label>
+        <input id="inputAddLine3" name="address_line3" placeholder="line 3" autofocus value="{{ profile.PF_COUNTRY }}" required />
+    </div><br/>
+    <div>
+        <label for="inputAddLine4">Address Line 4</label>
+        <input id="inputAddLine4" name="address_line4" placeholder="line 4" autofocus value="{{ profile.PF_CODE }}" required />
+    </div><br/>
+    <div>
+        <label for="inputGender" id="inputGender" required>Gender</label>
+        {% if profile.PF_SEX == 'MALE' %}
+        <select name="gender">
+            <option value="MALE" selected="true">Male</option>
+            <option value="FEMALE">Female</option>
+            <option value="NB">NB</option>
+        </select>
+        {% elseif profile.PF_SEX == 'FEMALE' %}
+        <select name="gender">
+            <option value="MALE">Male</option>
+            <option value="FEMALE" selected="true">Female</option>
+            <option value="NB">NB</option>
+        </select>
+        {% else %}
+        <select name="gender">
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
+            <option value="NB" selected="true">NB</option>
+        </select>
+        {% endif%}
+
+    </div><br/>
+    <div>
+        <label for="inputPhone">Phone Number</label>
+        <input type="phone" id="inputPhone" name="phone" placeholder="Phone" required value="{{ profile.PF_PHONE }}"/>
+    </div><br/>
+    <button type="submit">Save</button>
+    <a href="/fyp/public/?Myprofile/index">Cancel</a>
+</form>
+
+
+{% endblock %}

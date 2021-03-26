@@ -1,10 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}Job Postings{% endblock %}
+{% block footer %}
+{% endblock %}
+
+{% block body %}
+<h1>Job posting</h1>
+    {% for job in job_details %}
+<div>
+    <dl>
+        <dt>Reference</dt>
+         <dd>{{ job.P_REF }}</dd>
+        <dt>Position</dt>
+            <dd>{{ job.P_TITLE }}</dd>
+        <dt>University</dt>
+            <dd>{{ job.P_UNIVERSITY }}</dd>
+        <dt>Programme</dt>
+            <dd>{{ job.P_PROG }}</dd>
+        <dt>PHD</dt>
+            <dd>{{ job.P_PHD }}</dd>
+        <dt>Msc</dt>
+            <dd>{{ job.P_MSC }}</dd>
+        <dt>Degree</dt>
+            <dd>{{ job.P_DEGREE }}</dd>
+        <dt>Years Teaching</dt>
+            <dd>{{ job.P_TEACH_EXPERIENCE }}</dd>
+        <dt>Years in Industry</dt>
+            <dd>{{ job.P_IND_EXPERIENCE }}</dd>
+        <dt>Session</dt>
+            <dd>{{ job.P_SESSION }}</dd>
+        <dt>Job Description</dt>
+         <dd>{{ job.P_DESC }}</dd>
+        <dt>Job requirements</dt>
+            <dd>{{ job.P_REQ }}</dd>
+    </dl>
+</div>
+<div>
+    <p>
+        <form method="post" action="/fyp/public/?Jobpostings/index">
+                <button type="submit">See Full table</button>
+        </form>
+        {% if current_user.UA_TYPE|lower == 'lecturer' %}
+        <form method="post" action="/fyp/public/?Application/createApplication">
+            <input type="hidden" name='pid' value="{{ job.P_NUM }}">
+            <input type="hidden" name='userid' value="{{ current_user.UA_USER_ID }}">
+            <button type="submit">Apply</button>
+        </form>
+        {% endif %}
+    </p>
+</div>
+{% endfor %}
+
+
+<!-- Add page with full details and options to apply -->
+
+{% endblock %}

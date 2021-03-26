@@ -1,10 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}User Profile{% endblock %}
+{% block footer %}
+{% endblock %}
+
+{% block body %}
+<h1">Edit Availability</h1>
+
+{% if user.errors is not empty %}
+<p>Errors</p>
+<ul>
+    {% for error in user.errors %}
+    <li>{{ error}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+<p>Please update your availability</p>
+
+
+<!-- This html works out which option is currently stored in the database and makes this the
+    selected option on the form to prevent rework -->
+<form method="post" action="/fyp/public/?Myprofile/processAvailability" id="formAvailability">
+    <div>
+        <label for="inputDaytime" id="inputDaytime" required>Daytime (08:30-18:30)</label>
+        {% if profile.PF_SESSION_DAY == 'AVAILABLE' %}
+        <select name="day_time">
+            <option value="AVAILABLE" selected="true">Available</option>
+            <option value="UNAVAILABLE">Unavailable</option>
+        </select>
+        {% else %}
+        <select name="day_time">
+            <option value="AVAILABLE">Available</option>
+            <option value="UNAVAILABLE" selected="true">Unavailable</option>
+        </select>
+        {% endif%}
+    </div><br/>
+    <div>
+        <label for="inputGender" id="inputGender" required>Evening (19:00-22:00)</label>
+        {% if profile.PF_SESSION_EVENING == 'AVAILABLE' %}
+        <select name="evening">
+            <option value="AVAILABLE" selected="true">Available</option>
+            <option value="UNAVAILABLE">Unavailable</option>
+        </select>
+        {% else %}
+        <select name="evening">
+            <option value="AVAILABLE">Available</option>
+            <option value="UNAVAILABLE" selected="true">Unavailable</option>
+        </select>
+        {% endif%}
+    </div><br/>
+
+    <button type="submit">Save</button>
+    <a href="/fyp/public/?Myprofile/index">Cancel</a>
+</form>
+
+
+{% endblock %}

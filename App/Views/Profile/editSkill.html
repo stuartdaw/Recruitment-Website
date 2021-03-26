@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}User Profile{% endblock %}
+{% block footer %}
+{% endblock %}
+
+{% block body %}
+<h1>Edit Skill</h1>
+
+{% if user.errors is not empty %}
+<p>Errors</p>
+<ul>
+    {% for error in user.errors %}
+    <li>{{ error}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<p>Please edit your Skill</p>
+
+{% for skill in skills %}
+<form method="post" action="/fyp/public/?Myprofile/processEditSkill" id="formEditSkill">
+
+    <div>
+        <label for="inputName">Name</label>
+        <input type="text" id="inputName" name="name" placeholder="Skill Name" autofocus value="{{ skill.S_NAME }}" required />
+    </div><br/>
+    <div>
+        <label for="inputProficiency">Proficiency</label>
+        <input type="text" id="inputProficiency" name="proficiency" placeholder="Proficiency" autofocus value="{{ skill.S_PROFICIENCY }}" required />
+    </div><br/>
+    <div>
+        <label for="inputDesc">Description</label>
+        <input type="text" id="inputDesc" name="desc" placeholder="Skill Description" autofocus value="{{ skill.S_DESC }}" required />
+    </div><br/>
+    <input type="hidden" name="sid" value="{{ skill.S_NUM }}"/>
+
+    <button type="submit">Update</button>
+    <a href="/fyp/public/?Myprofile/index">Cancel</a>
+</form>
+{% endfor %}
+
+
+{% endblock %}

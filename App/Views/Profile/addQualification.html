@@ -1,10 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}User Account{% endblock %}
+{% block footer %}
+{% endblock %}
+
+{% block body %}
+<h1>Add Qualification</h1>
+
+{% if user.errors is not empty %}
+<p>Errors</p>
+<ul>
+    {% for error in user.errors %}
+    <li>{{ error}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<p>Please add a qualification</p>
+
+<form method="post" action="/fyp/public/?Myprofile/processNewQualification" id="formAddQual">
+    <div>
+        <label for="inputUni">University</label>
+        <input type="text" id="inputUni" name="university" placeholder="University" autofocus value="{{ profile.PF_DOB }}" required />
+    </div><br/>
+    <div>
+        <label for="inputMajor">Major</label>
+        <input id="inputMajor" name="major" placeholder="Major" autofocus value="{{ profile.PF_ROAD }}" required />
+    </div><br/>
+    <div>
+        <label for="inputQualName">Qualification Name</label>
+        <input id="inputQualName" name="qual_name" placeholder="Name" autofocus value="{{ profile.PF_UNIT }}" required />
+    </div><br/>
+
+    <div>
+        <label for="inputLevel" id="inputLevel" required>Level</label>
+        <select name="level">
+            <option value="Phd">Phd</option>
+            <option value="Msc">Msc</option>
+            <option value="Degree">Degree</option>
+            <option value="Postgrad Certificate">Postgrad Certificate</option>
+            <option value="Diploma">Diploma</option>
+            <option value="Other">Other</option>
+        </select>
+    </div><br/>
+    <div>
+        <label for="inputDesc">Description</label>
+        <input id="inputDesc" name="qual_desc" placeholder="Qualification Description" autofocus value="{{ profile.PF_CODE }}" required />
+    </div><br/>
+
+
+        <div>
+            <label for="inputGradYr">Graduation Year</label>
+            <input type="number" id="inputGradYr" name="grad_yr" placeholder="Graduation year" autofocus value="{{ profile.PF_DOB }}" required />
+        </div><br/>
+
+    <div>
+        <label for="inputClassification">Classification</label>
+        <input type="text" id="inputClassification" name="classification" placeholder="classification" required value="{{ profile.PF_PHONE }}"/>
+    </div><br/>
+    <button type="submit">Save</button>
+    <a href="/fyp/public/?Myprofile/index">Cancel</a>
+</form>
+
+
+{% endblock %}

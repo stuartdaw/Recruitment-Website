@@ -2,6 +2,9 @@
 
 namespace Core;
 
+use App\Authenticate;
+use App\Flash;
+
 abstract class Controller
 {
     protected $route_params = [];
@@ -42,7 +45,19 @@ abstract class Controller
         header('Location: http://' . $_SERVER['HTTP_HOST'] . $url, true, 303);
         exit;
     }
+
+    // checks a user has correct login
+    public function requireLogin()
+    {
+        if(! Authenticate::getUser())
+        {
+            //echo "got profile index<br/>";
+            Flash::addMessage('Please log in to access requested page');
+
+                Authenticate::rememberRequestedPage();
+
+            $this->redirect('/fyp/public/?Admin/Login/new');
+        }
+    }
 }
-
 ?>
-

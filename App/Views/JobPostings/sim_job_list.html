@@ -1,10 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}SIM Postings{% endblock %}
+{% block footer %}
+{% endblock %}
+
+{% block body %}
+<h1>SIM postings</h1>
+<div>
+    <h2>Please browse jobs:</h2>
+    <a href="/fyp/public/?Jobpostings/addJobPage">add new</a>
+    <table>
+        <tr>
+            <th>Reference</th>
+            <th>Position Title</th>
+            <th>University</th>
+            <th>Programme</th>
+            <th>PHD</th>
+            <th>Msc</th>
+            <th>Degree</th>
+            <th>Years Teaching</th>
+            <th>Years in Industry</th>
+            <th>Session</th>
+            <th>Details</th>
+        </tr>
+        {% for job in job_list %}
+        <tr>
+            <td> {{ job.P_REF }} </td>
+            <td> {{ job.P_TITLE }} </td>
+            <td> {{ job.P_UNIVERSITY }} </td>
+            <td> {{ job.P_PROG }} </td>
+
+            {% if job.P_PHD == 'Required' %}
+            <td> &#10003 </td>
+            {% elseif job.P_PHD == 'Preferred'%}
+            <td> &#10025 </td>
+            {% else %}
+            <td> {{ job.P_PHD }} </td>
+            {% endif %}
+
+            {% if job.P_MSC == 'Required' %}
+            <td> &#10003 </td>
+            {% elseif job.P_MSC == 'Preferred'%}
+            <td> &#10025 </td>
+            {% else %}
+            <td> {{ job.P_MSC }} </td>
+            {% endif %}
+
+            {% if job.P_DEGREE == 'Required' %}
+            <td> &#10003 </td>
+            {% elseif job.P_DEGREE == 'Preferred'%}
+            <td> &#10025 </td>
+            {% else %}
+            <td> {{ job.P_DEGREE }} </td>
+            {% endif %}
+
+            <td> {{ job.P_TEACH_EXPERIENCE }} </td>
+            <td> {{ job.P_IND_EXPERIENCE }} </td>
+
+            <td> {{ job.P_SESSION | capitalize }} </td>
+            <td><form method="post" action="/fyp/public/?Jobpostings/createShowJob">
+                <input type="hidden" name='pid' value="{{ job.P_NUM }}">
+                <button type="submit">Full Details</button>
+            </form></td>
+        </tr>
+        <!--<tr>
+            <td>Job Description</td>
+            <td colspan="10"> {{ job.P_DESC }} </td>
+        </tr>
+        <tr>
+            <td colspan="11"></td>
+        </tr>
+        <tr>
+            <td>Job requirements</td>
+            <td colspan="10"> {{ job.P_REQ }} </td>
+        </tr>
+            <td colspan="11">===========================================================================================================</td>
+        </tr>
+        <tr>
+            <td colspan="11"></td>
+        </tr>-->
+
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

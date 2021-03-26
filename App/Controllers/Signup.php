@@ -3,52 +3,43 @@
 namespace App\Controllers;
 
 use \Core\View;
-use App\Models\Post;
+//use App\Models\Post;
+use App\Models\User;
 
 
-class Register extends \Core\Controller
+class Signup extends \Core\Controller
 {
 
-    public $a = 'hey im a router';
-
-    // runs before every method
-    protected function before(){
-     //   echo "Before: ";
-    }
-
-    // runs after every method
-    protected function after(){
-    // echo " :After";
-    }
-
-
-
     public function indexAction() {
-        /*echo "hello from the Register class. index function";
-        echo "<p>Query string parameters: <pre>" .
-                   htmlspecialchars(print_r($_GET, true)) . "</pre></p>";*/
-
-        $posts = Post::getAll();
-
-        View::renderTwigTemplate('Signup/newuser.html',
-                [ 'posts' => $posts
-            ]);
-
-    }
-
-    public function addNewAction() {
-        echo "hello from the Register class, addNew function";
+        View::renderTwigTemplate('Signup/newuser.html');
     }
 
     public function editAction()
     {
-        echo "Hello from edit function in Register class";
         echo "<p>Route Params: <pre>" .
                 htmlspecialchars(print_r($this->route_params, true)) . "</pre></p>";
     }
 
-    public function __toStringAction(){
-        return $this->a;
+    // Pass the user information from the form to the User model class
+    public function createAction()
+    {
+        $user = new User($_POST);
+
+        if($user->save())
+        {
+            $this->redirect('/fyp/public/?signup/success');
+        } else {
+            View::renderTwigTemplate('Signup/newuser.html',
+                [ 'user' => $user
+                ]);
+        }
+    }
+
+    // Show the signup success page.
+    // Post, redirect, get method to stop multiple form entries
+   public function successAction()
+    {
+        View::renderTwigTemplate('Signup/successfulSignup.html');
     }
 }
 

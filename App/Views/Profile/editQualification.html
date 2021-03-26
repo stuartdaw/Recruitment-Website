@@ -1,10 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}User Profile{% endblock %}
+{% block footer %}
+{% endblock %}
+
+{% block body %}
+<h1>Edit Qualification</h1>
+
+{% if user.errors is not empty %}
+<p>Errors</p>
+<ul>
+    {% for error in user.errors %}
+    <li>{{ error}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<p>Please edit your qualification</p>
+
+{% for qual in qualification %}
+<form method="post" action="/fyp/public/?Myprofile/processEditQualification" id="formEditQual">
+    <div>
+        <label for="inputUni">University</label>
+        <input type="text" id="inputUni" name="university" placeholder="University" autofocus value="{{ qual.Q_SCHOOL }}" required />
+    </div><br/>
+    <div>
+        <label for="inputMajor">Major</label>
+        <input id="inputMajor" name="major" placeholder="Major" autofocus value="{{ qual.Q_MAJOR }}" required />
+    </div><br/>
+    <div>
+        <label for="inputQualName">Qualification Name</label>
+        <input id="inputQualName" name="qual_name" placeholder="Name" autofocus value="{{ qual.Q_NAME }}" required />
+    </div><br/>
+
+    <div>
+        <label for="inputLevel" id="inputLevel" required>Level</label>
+        {% if not qual.Q_LEVEL %}
+        <select name="level">
+            <option value="Phd">Phd</option>
+            <option value="Msc">Msc</option>
+            <option value="Degree">Degree</option>
+            <option value="Postgrad Certificate">Postgrad Certificate</option>
+            <option value="Diploma">Diploma</option>
+            <option value="Other">Other</option>
+        </select>
+        {% elseif qual.Q_LEVEL == 'Phd' %}
+        <select name="level">
+            <option value="Phd" selected="true">Phd</option>
+            <option value="Msc">Msc</option>
+            <option value="Degree">Degree</option>
+            <option value="Postgrad Certificate">Postgrad Certificate</option>
+            <option value="Diploma">Diploma</option>
+            <option value="Other">Other</option>
+        </select>
+        {% elseif qual.Q_LEVEL == 'Msc' %}
+        <select name="level">
+            <option value="Phd">Phd</option>
+            <option value="Msc" selected="true">Msc</option>
+            <option value="Degree">Degree</option>
+            <option value="Postgrad Certificate">Postgrad Certificate</option>
+            <option value="Diploma">Diploma</option>
+            <option value="Other">Other</option>
+        </select>
+        {% elseif qual.Q_LEVEL == 'Degree' %}
+        <select name="level">
+            <option value="Phd">Phd</option>
+            <option value="Msc">Msc</option>
+            <option value="Degree" selected="true">Degree</option>
+            <option value="Postgrad Certificate">Postgrad Certificate</option>
+            <option value="Diploma">Diploma</option>
+            <option value="Other">Other</option>
+        </select>
+        {% elseif qual.Q_LEVEL == 'Postgrad Certificate' %}
+        <select name="level">
+            <option value="Phd">Phd</option>
+            <option value="Msc">Msc</option>
+            <option value="Degree">Degree</option>
+            <option value="Postgrad Certificate" selected="true">Postgrad Certificate</option>
+            <option value="Diploma">Diploma</option>
+            <option value="Other">Other</option>
+        </select>
+        {% elseif qual.Q_LEVEL == 'Diploma' %}
+        <select name="level">
+            <option value="Phd">Phd</option>
+            <option value="Msc">Msc</option>
+            <option value="Degree">Degree</option>
+            <option value="Postgrad Certificate">Postgrad Certificate</option>
+            <option value="Diploma" selected="true">Diploma</option>
+            <option value="Other">Other</option>
+        </select>
+        {% elseif qual.Q_LEVEL == 'Other' %}
+        <select name="level">
+            <option value="Phd">Phd</option>
+            <option value="Msc">Msc</option>
+            <option value="Degree">Degree</option>
+            <option value="Postgrad Certificate">Postgrad Certificate</option>
+            <option value="Diploma">Diploma</option>
+            <option value="Other" selected="true">Other</option>
+        </select>
+        {% endif%}
+    </div><br/>
+    <div>
+        <label for="inputDesc">Description</label>
+        <input id="inputDesc" name="qual_desc" placeholder="Qualification Description" autofocus value="{{ qual.Q_DESC }}" required />
+    </div><br/>
+    <div>
+        <label for="inputGradYr">Graduation Year</label>
+        <input type="text" id="inputGradYr" name="grad_yr" placeholder="Graduation year" autofocus value="{{ qual.Q_GRADYEAR }}" required />
+    </div><br/>
+
+    <div>
+        <label for="inputClassification">Classification</label>
+        <input type="text" id="inputClassification" name="classification" placeholder="classification" required value="{{ qual.Q_CLASSIFICATION }}"/>
+    </div><br/>
+
+    <input type="hidden" name="q_id" value="{{ qual.Q_NUM }}"/>
+
+    <button type="submit">Update</button>
+    <a href="/fyp/public/?Myprofile/index">Cancel</a>
+</form>
+{% endfor %}
+
+
+{% endblock %}

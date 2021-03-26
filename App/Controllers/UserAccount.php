@@ -8,38 +8,38 @@ use App\Authenticate;
 //use Core\Controller;
 //use App\Authenticate;
 
-class Profile extends Admin\Authenticated
+class UserAccount extends Admin\Authenticated
 {
-    // Display Profile page if user is logged in
+    // Display user account page if user is logged in
     public function indexAction()
     {
-        View::renderTwigTemplate('/Profile/profile.html', [
+        View::renderTwigTemplate('/UserDetail/user_account.html');
+      /*  View::renderTwigTemplate('/UserDetail/user_account.html', [
             'user' => Authenticate::getUser()
-        ]);
+        ]);*/
     }
 
     // Displays edit user details form
     public function editAction()
     {
-        View::renderTwigTemplate('/Profile/edit.html', [
+        View::renderTwigTemplate('/UserDetail/edit.html', [
             'user' => Authenticate::getUser()
         ]);
-
     }
 
-    // update the profile in the database
+    // update the user account in the database
     public function updateAction()
     {
         $user = Authenticate::getUser();
 
-        if($user->updateProfile($_POST))
+        if($user->updateUserAccount($_POST))
         {
             //echo "<p>ok</p>";
             Flash::addMessage("Update Successful");
-            $this->redirect('/fyp/public/?profile/index');
+            $this->redirect('/fyp/public/?UserAccount/index');
         } else {
             Flash::addMessage("Update Failed");
-            View::renderTwigTemplate('/Profile/edit.html', [
+            View::renderTwigTemplate('/UserDetail/edit.html', [
                 'user' => $user
             ]);
         }

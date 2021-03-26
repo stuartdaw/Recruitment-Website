@@ -1,10 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}My Applications{% endblock %}
+{% block footer %}
+{% endblock %}
+
+{% block body %}
+<h1>My Applications</h1>
+<div>
+    <h2>Please browse jobs:</h2>
+    <table>
+        <tr>
+            <th>Position</th>
+            <th>Reference</th>
+            <th>University</th>
+            <th>Date Applied</th>
+            <th>Status</th>
+            <th>See full description</th>
+            <th>Cancel</th>
+        </tr>
+        {% for job in job_details %}
+        <tr>
+            <td> {{ job.P_TITLE }} </td>
+            <td> {{ job.P_REF }} </td>
+            <td> {{ job.P_UNIVERSITY }} </td>
+            <td> {{ job.APC_DATEAPPLY }} </td>
+            <td> {{ job.APC_STATUS }} </td>
+            <td><form method="post" action="/fyp/public/?Jobpostings/createShowJob">
+                <input type="hidden" name='pid' value="{{ job.P_NUM }}">
+                <button type="submit">Full Details</button>
+                </form></td>
+            <td><form method="post" action="/fyp/public/?Application/withdrawApplication">
+                <input type="hidden" name='pid' value="{{ job.P_NUM }}">
+                <input type="hidden" name='userid' value="{{ current_user.UA_USER_ID }}">
+                <button type="submit">Withdraw</button>
+            </form></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

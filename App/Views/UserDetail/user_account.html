@@ -1,22 +1,22 @@
 {% extends "base.html" %}
 
-{% block title %}Profile{% endblock %}
+{% block title %}User Account{% endblock %}
 
 {% block body %}
 
-<h1> Welcome to your profile </h1>
+<h1> Welcome to your User Account </h1>
 
 <dl>
     <dt>First Name</dt>
-    <dd>{{ user.UA_FIRST_NAME }}</dd>
+    <dd>{{ current_user.UA_FIRST_NAME }}</dd>
     <dt>Last Name</dt>
-    <dd>{{ user.UA_LAST_NAME }}</dd>
+    <dd>{{ current_user.UA_LAST_NAME }}</dd>
     <dt>email</dt>
-    <dd>{{ user.UA_EMAIL }}</dd>
+    <dd>{{ current_user.UA_EMAIL }}</dd>
     <dt>Account Type</dt>
-    <dd>{{ user.UA_TYPE }}</dd>
+    <dd>{{ current_user.UA_TYPE }}</dd>
 </dl>
 
-<a href="?profile/edit">Edit</a>
+<a href="?UserAccount/edit">Edit</a>
 
 {% endblock %}

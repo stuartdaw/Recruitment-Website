@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <h1> Home page Welcome to iLers</h1>
+    {% if current_user %}
+        Hello {{ current_user.name }}
+    {% else %}
+        Please log in
+    {% endif %}
+
+    <!--<p>Hello from twig template {{name}}!</p>
+    <ul>
+        {% for colour in colours %}
+            <li>{{ colour }}</li>
+        {% endfor %}
+    </ul> -->
+
+{% endblock %}
